@@ -21,7 +21,7 @@ The system has been configured with a static admin user in the database:
 
 3. **Login with admin credentials:**
    - Email: `admin@zvent.com`
-   - Password: `Admin123!`
+   - Password: `*******`
 
 4. **Automatic redirect:**
    - Admin users will be automatically redirected to `admin.html`
