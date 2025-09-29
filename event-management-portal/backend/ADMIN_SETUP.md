@@ -4,10 +4,6 @@
 
 The system has been configured with a static admin user in the database:
 
-**Email:** `admin@zvent.com`  
-**Password:** `Admin123!`  
-**Role:** `admin`
-
 ## 🚀 How to Access Admin Panel
 
 1. **Start the backend server:**
