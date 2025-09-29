@@ -1,0 +1,2301 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZVENT - Admin Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/smooth-transitions.css">
+
+
+
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 via-white to-gray-50 min-h-screen">
+
+
+
+    <!-- Floating Background Elements -->
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+
+        <div
+            class="absolute -top-40 -right-40 w-80 h-80 gradient-purple rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation">
+        </div>
+
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 gradient-cyan rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation"
+            style="animation-delay: 2s;"></div>
+
+        <div class="absolute top-40 left-40 w-60 h-60 gradient-green rounded-full mix-blend-multiply filter blur-xl opacity-20 floating-animation"
+            style="animation-delay: 4s;"></div>
+
+    </div>
+
+
+
+    <!-- Sidebar -->
+
+    <div class="fixed left-0 top-0 h-full w-72 glass-effect z-50 p-6">
+
+        <div class="flex items-center gap-3 mb-8">
+
+            <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+
+                Z
+
+            </div>
+
+            <h1 class="text-2xl font-bold text-gradient">ZVENT Admin</h1>
+
+        </div>
+
+
+
+        <nav class="space-y-2">
+
+            <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl active" data-section="overview">
+
+                <span class="text-xl">📊</span>
+
+                <span class="font-medium">Overview</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="events">
+
+                <span class="text-xl">📅</span>
+
+                <span class="font-medium">Events</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="users">
+
+                <span class="text-xl">👥</span>
+
+                <span class="font-medium">Users</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="announcements">
+
+                <span class="text-xl">📢</span>
+
+                <span class="font-medium">Announcements</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="analytics">
+
+                <span class="text-xl">📈</span>
+
+                <span class="font-medium">Analytics</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="settings">
+
+                <span class="text-xl">⚙️</span>
+
+                <span class="font-medium">Settings</span>
+
+            </a>
+
+        </nav>
+
+
+
+        <div class="mt-auto pt-8">
+
+            <div class="glass-effect rounded-2xl p-4">
+
+                <div class="flex items-center gap-3 mb-2">
+
+                    <div
+                        class="w-8 h-8 gradient-bg rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        A</div>
+
+                    <div>
+
+                        <div class="font-semibold text-sm text-gray-900">Admin User</div>
+
+                        <div class="text-xs text-gray-600">System Administrator</div>
+
+                    </div>
+
+                </div>
+
+                <button class="w-full text-xs glass-effect rounded-lg py-2 hover:bg-white/50 transition-all"
+                    onclick="logout()">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Top Bar -->
+
+    <div class="fixed top-0 left-72 right-0 h-20 glass-effect z-40 flex items-center justify-between px-8">
+
+        <div class="flex-1 max-w-xl">
+
+            <div class="relative">
+
+                <input type="text" placeholder="Search users, events, announcements..."
+                    class="w-full px-6 py-3 pl-12 rounded-2xl glass-effect border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder-gray-500"
+                    id="adminSearch">
+
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">🔍</span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="flex items-center gap-4">
+
+            <div class="relative">
+
+                <button class="p-3 rounded-xl glass-effect hover:bg-white/30 transition-all duration-300"
+                    onclick="showSystemAlerts()">
+
+                    <span class="text-xl">🚨</span>
+
+                </button>
+
+                <div
+                    class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs text-white font-bold">
+                    2</div>
+
+            </div>
+
+            <div class="text-right">
+
+                <div class="text-sm font-semibold text-gray-900">System Status</div>
+
+                <div class="text-xs text-green-600">All Systems Operational</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Main Content -->
+
+    <div class="ml-72 mt-20 p-8 relative z-10">
+
+
+
+        <!-- Overview Section -->
+
+        <div id="overview" class="section section-visible">
+
+            <div class="mb-8">
+
+                <h2 class="text-3xl font-bold text-gradient mb-2">Admin Dashboard Overview</h2>
+
+                <p class="text-gray-600">Manage your ZVENT platform efficiently</p>
+
+            </div>
+
+
+
+            <!-- Key Metrics -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+                <div class="modern-card rounded-2xl p-6 fade-in-up">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <div class="text-2xl">👥</div>
+
+                        <div class="text-right">
+
+                            <div class="text-sm text-gray-600">Total Users</div>
+
+                            <div class="text-2xl font-bold text-gray-900">2,847</div>
+
+                            <div class="text-xs text-green-600">↗ +12.5% this month</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.1s;">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <div class="text-2xl">📅</div>
+
+                        <div class="text-right">
+
+                            <div class="text-sm text-gray-600">Active Events</div>
+
+                            <div class="text-2xl font-bold text-gray-900">47</div>
+
+                            <div class="text-xs text-blue-600">8 this week</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.2s;">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <div class="text-2xl">🎯</div>
+
+                        <div class="text-right">
+
+                            <div class="text-sm text-gray-600">Registrations</div>
+
+                            <div class="text-2xl font-bold text-gray-900">1,256</div>
+
+                            <div class="text-xs text-purple-600">This month</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.3s;">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <div class="text-2xl">⭐</div>
+
+                        <div class="text-right">
+
+                            <div class="text-sm text-gray-600">Avg Rating</div>
+
+                            <div class="text-2xl font-bold text-gray-900">4.7</div>
+
+                            <div class="text-xs text-yellow-600">From 856 reviews</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Charts and Recent Activity -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">User Registration Trend</h3>
+
+                    <div class="chart-container">
+
+                        <canvas id="userTrendChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Activity</h3>
+
+                    <div class="space-y-4">
+
+                        <div class="flex items-start gap-4 p-3 glass-effect rounded-xl">
+
+                            <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+
+                            <div class="flex-1">
+
+                                <div class="text-sm font-semibold text-gray-900">New event created</div>
+
+                                <div class="text-xs text-gray-600">AI Workshop 2024 - 5 minutes ago</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 glass-effect rounded-xl">
+
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+
+                            <div class="flex-1">
+
+                                <div class="text-sm font-semibold text-gray-900">User registered</div>
+
+                                <div class="text-xs text-gray-600">Priya Sharma joined - 12 minutes ago</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-start gap-4 p-3 glass-effect rounded-xl">
+
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
+
+                            <div class="flex-1">
+
+                                <div class="text-sm font-semibold text-gray-900">Event registration</div>
+
+                                <div class="text-xs text-gray-600">25 new registrations for Tech Fest - 1 hour ago</div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Quick Actions -->
+
+            <div class="modern-card rounded-3xl p-8">
+
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Quick Actions</h3>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+                    <button
+                        class="interactive-btn p-6 glass-effect rounded-2xl hover:bg-white/50 transition-all text-center"
+                        onclick="openModal('createEventModal')">
+
+                        <div class="text-3xl mb-2">➕</div>
+
+                        <div class="text-sm font-semibold">Create Event</div>
+
+                    </button>
+
+                    <button
+                        class="interactive-btn p-6 glass-effect rounded-2xl hover:bg-white/50 transition-all text-center"
+                        onclick="openModal('createAnnouncementModal')">
+
+                        <div class="text-3xl mb-2">📢</div>
+
+                        <div class="text-sm font-semibold">New Announcement</div>
+
+                    </button>
+
+                    <button
+                        class="interactive-btn p-6 glass-effect rounded-2xl hover:bg-white/50 transition-all text-center"
+                        onclick="showSection('users')">
+
+                        <div class="text-3xl mb-2">👥</div>
+
+                        <div class="text-sm font-semibold">Manage Users</div>
+
+                    </button>
+
+                    <button
+                        class="interactive-btn p-6 glass-effect rounded-2xl hover:bg-white/50 transition-all text-center"
+                        onclick="showSection('analytics')">
+
+                        <div class="text-3xl mb-2">📊</div>
+
+                        <div class="text-sm font-semibold">View Reports</div>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Events Section -->
+
+        <div id="events" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Event Management</h2>
+
+                    <p class="text-gray-600 mt-2">Create, edit, and manage events</p>
+
+                </div>
+
+                <button
+                    class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition-all interactive-btn"
+                    onclick="openModal('createEventModal')">
+
+                    Create New Event
+
+                </button>
+
+            </div>
+
+
+
+            <div class="modern-card rounded-3xl p-8 mb-8">
+
+                <div class="flex gap-4 mb-6">
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>All Categories</option>
+
+                        <option>Technology</option>
+
+                        <option>Cultural</option>
+
+                        <option>Sports</option>
+
+                        <option>Academic</option>
+
+                    </select>
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>All Status</option>
+
+                        <option>Active</option>
+
+                        <option>Draft</option>
+
+                        <option>Completed</option>
+
+                        <option>Cancelled</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="overflow-x-auto">
+
+                    <table class="data-table w-full">
+
+                        <thead>
+
+                            <tr>
+
+                                <th class="text-left">Event Name</th>
+
+                                <th class="text-left">Date</th>
+
+                                <th class="text-left">Category</th>
+
+                                <th class="text-left">Registrations</th>
+
+                                <th class="text-left">Status</th>
+
+                                <th class="text-left">Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="eventsTable">
+
+                            <!-- Events data will be populated here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Users Section -->
+
+        <div id="users" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">User Management</h2>
+
+                    <p class="text-gray-600 mt-2">Manage student accounts and permissions</p>
+
+                </div>
+
+                <button
+                    class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition-all interactive-btn"
+                    onclick="openModal('addUserModal')">
+
+                    Add New User
+
+                </button>
+
+            </div>
+
+
+
+            <div class="modern-card rounded-3xl p-8">
+
+                <div class="flex gap-4 mb-6">
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>All Departments</option>
+
+                        <option>Computer Science</option>
+
+                        <option>Electronics</option>
+
+                        <option>Mechanical</option>
+
+                        <option>Civil</option>
+
+                    </select>
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>All Years</option>
+
+                        <option>First Year</option>
+
+                        <option>Second Year</option>
+
+                        <option>Third Year</option>
+
+                        <option>Final Year</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="overflow-x-auto">
+
+                    <table class="data-table w-full">
+
+                        <thead>
+
+                            <tr>
+
+                                <th class="text-left">Name</th>
+
+                                <th class="text-left">Email</th>
+
+                                <th class="text-left">Department</th>
+
+                                <th class="text-left">Year</th>
+
+                                <th class="text-left">Events</th>
+
+                                <th class="text-left">Status</th>
+
+                                <th class="text-left">Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="usersTable">
+
+                            <!-- Users data will be populated here -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Announcements Section -->
+
+        <div id="announcements" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Announcement Management</h2>
+
+                    <p class="text-gray-600 mt-2">Create and manage system announcements</p>
+
+                </div>
+
+                <button
+                    class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition-all interactive-btn"
+                    onclick="openModal('createAnnouncementModal')">
+
+                    Create Announcement
+
+                </button>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Create/Edit Form -->
+
+                <div class="lg:col-span-1">
+
+                    <div class="modern-card rounded-3xl p-6 sticky top-28">
+
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Quick Create</h3>
+
+                        <form class="space-y-4" onsubmit="return createAnnouncement(event)">
+
+                            <div>
+
+                                <label class="block text-sm font-semibold text-gray-900 mb-2">Priority</label>
+
+                                <select
+                                    class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                    id="announcementPriority">
+
+                                    <option value="normal">Normal</option>
+
+                                    <option value="important">Important</option>
+
+                                    <option value="urgent">Urgent</option>
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+
+                                <select
+                                    class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                    id="announcementCategory">
+
+                                    <option value="general">General</option>
+
+                                    <option value="academic">Academic</option>
+
+                                    <option value="events">Events</option>
+
+                                    <option value="technical">Technical</option>
+
+                                </select>
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-sm font-semibold text-gray-900 mb-2">Title</label>
+
+                                <input type="text"
+                                    class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                    placeholder="Announcement title" id="announcementTitle">
+
+                            </div>
+
+                            <div>
+
+                                <label class="block text-sm font-semibold text-gray-900 mb-2">Message</label>
+
+                                <textarea
+                                    class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                                    placeholder="Announcement content" id="announcementMessage"></textarea>
+
+                            </div>
+
+                            <button type="submit"
+                                class="w-full px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition-all interactive-btn">
+
+                                Publish Announcement
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Announcements List -->
+
+                <div class="lg:col-span-2">
+
+                    <div class="modern-card rounded-3xl p-8">
+
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Announcements</h3>
+
+                        <div class="space-y-4" id="announcementsList">
+
+                            <!-- Announcements will be populated here -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Analytics Section -->
+
+        <div id="analytics" class="section section-hidden">
+
+            <div class="mb-8">
+
+                <h2 class="text-3xl font-bold text-gradient">Analytics & Reports</h2>
+
+                <p class="text-gray-600 mt-2">Detailed insights and performance metrics</p>
+
+            </div>
+
+
+
+            <!-- Analytics Charts -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Event Participation by Category</h3>
+
+                    <div class="chart-container">
+
+                        <canvas id="categoryChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Monthly Registration Trends</h3>
+
+                    <div class="chart-container">
+
+                        <canvas id="registrationChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Detailed Reports -->
+
+            <div class="modern-card rounded-3xl p-8">
+
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Performance Reports</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                    <div class="text-center p-6 glass-effect rounded-2xl">
+
+                        <div class="text-3xl font-bold gradient-bg bg-clip-text text-transparent">87%</div>
+
+                        <div class="text-sm text-gray-600 mt-1">Average Attendance Rate</div>
+
+                    </div>
+
+                    <div class="text-center p-6 glass-effect rounded-2xl">
+
+                        <div class="text-3xl font-bold gradient-green bg-clip-text text-transparent">4.6</div>
+
+                        <div class="text-sm text-gray-600 mt-1">Average Event Rating</div>
+
+                    </div>
+
+                    <div class="text-center p-6 glass-effect rounded-2xl">
+
+                        <div class="text-3xl font-bold gradient-purple bg-clip-text text-transparent">95%</div>
+
+                        <div class="text-sm text-gray-600 mt-1">User Satisfaction Score</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Settings Section -->
+
+        <div id="settings" class="section section-hidden">
+
+            <div class="mb-8">
+
+                <h2 class="text-3xl font-bold text-gradient">System Settings</h2>
+
+                <p class="text-gray-600 mt-2">Configure system preferences and security</p>
+
+            </div>
+
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- General Settings -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">General Settings</h3>
+
+                    <div class="space-y-6">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">System Name</label>
+
+                            <input type="text" value="ZVENT - Event Management System"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Default Event Duration</label>
+
+                            <select
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                                <option>2 hours</option>
+
+                                <option>3 hours</option>
+
+                                <option>4 hours</option>
+
+                                <option>Full Day</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Registration Deadline</label>
+
+                            <select
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                                <option>1 day before</option>
+
+                                <option>2 days before</option>
+
+                                <option>1 week before</option>
+
+                                <option>Custom</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Security Settings -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Security & Permissions</h3>
+
+                    <div class="space-y-6">
+
+                        <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                            <div>
+
+                                <div class="font-semibold text-gray-900">Two-Factor Authentication</div>
+
+                                <div class="text-sm text-gray-600">Enhanced security for admin accounts</div>
+
+                            </div>
+
+                            <label class="relative inline-flex items-center cursor-pointer">
+
+                                <input type="checkbox" class="sr-only peer" checked>
+
+                                <div
+                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                            <div>
+
+                                <div class="font-semibold text-gray-900">Email Notifications</div>
+
+                                <div class="text-sm text-gray-600">Get alerts for system events</div>
+
+                            </div>
+
+                            <label class="relative inline-flex items-center cursor-pointer">
+
+                                <input type="checkbox" class="sr-only peer" checked>
+
+                                <div
+                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                            <div>
+
+                                <div class="font-semibold text-gray-900">Auto-backup</div>
+
+                                <div class="text-sm text-gray-600">Daily automated system backups</div>
+
+                            </div>
+
+                            <label class="relative inline-flex items-center cursor-pointer">
+
+                                <input type="checkbox" class="sr-only peer" checked>
+
+                                <div
+                                    class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Modals -->
+
+
+
+    <!-- Create Event Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="createEventModal">
+
+        <div class="modern-card rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Create New Event</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                        onclick="closeModal('createEventModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <form class="space-y-6" onsubmit="return createEvent(event)">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Event Title</label>
+
+                            <input type="text"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                placeholder="Enter event title" required>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+
+                            <select
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                required>
+
+                                <option value="">Select Category</option>
+
+                                <option value="technology">Technology</option>
+
+                                <option value="cultural">Cultural</option>
+
+                                <option value="sports">Sports</option>
+
+                                <option value="academic">Academic</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Date</label>
+
+                            <input type="datetime-local"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                required>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Venue</label>
+
+                            <input type="text"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                placeholder="Enter venue" required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Organizer</label>
+
+                            <input type="text"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                placeholder="Organizing committee" required>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Max Participants</label>
+
+                            <input type="number"
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                placeholder="100" required>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Description</label>
+
+                        <textarea
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                            placeholder="Event description..." required></textarea>
+
+                    </div>
+
+
+
+                    <div class="flex gap-4">
+
+                        <button type="button"
+                            class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                            onclick="closeModal('createEventModal')">
+
+                            Cancel
+
+                        </button>
+
+                        <button type="submit"
+                            class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                            Create Event
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Create Announcement Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="createAnnouncementModal">
+
+        <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Create Announcement</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                        onclick="closeModal('createAnnouncementModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <form class="space-y-6" onsubmit="return createAnnouncementFromModal(event)">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Priority Level</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="normal">Normal</option>
+
+                            <option value="important">Important</option>
+
+                            <option value="urgent">Urgent</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="general">General</option>
+
+                            <option value="academic">Academic</option>
+
+                            <option value="events">Events</option>
+
+                            <option value="technical">Technical</option>
+
+                            <option value="emergency">Emergency</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Title</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="Announcement title" required>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Message</label>
+
+                        <textarea
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                            placeholder="Announcement content..." required></textarea>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Target Audience</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="all">All Students</option>
+
+                            <option value="cs">Computer Science</option>
+
+                            <option value="ec">Electronics</option>
+
+                            <option value="me">Mechanical</option>
+
+                            <option value="ce">Civil Engineering</option>
+
+                            <option value="final_year">Final Year Only</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="flex gap-4">
+
+                        <button type="button"
+                            class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                            onclick="closeModal('createAnnouncementModal')">
+
+                            Cancel
+
+                        </button>
+
+                        <button type="submit"
+                            class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                            Publish
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Add User Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="addUserModal">
+
+        <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Add New User</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                        onclick="closeModal('addUserModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <form class="space-y-6" onsubmit="return addUser(event)">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Full Name</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="Enter full name" required>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Email Address</label>
+
+                        <input type="email"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="user@university.edu" required>
+
+                    </div>
+
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Department</label>
+
+                            <select
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                required>
+
+                                <option value="">Select Department</option>
+
+                                <option value="cs">Computer Science</option>
+
+                                <option value="ec">Electronics</option>
+
+                                <option value="me">Mechanical</option>
+
+                                <option value="ce">Civil Engineering</option>
+
+                            </select>
+
+                        </div>
+
+                        <div>
+
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Year</label>
+
+                            <select
+                                class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                                required>
+
+                                <option value="">Select Year</option>
+
+                                <option value="1">First Year</option>
+
+                                <option value="2">Second Year</option>
+
+                                <option value="3">Third Year</option>
+
+                                <option value="4">Final Year</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Student ID</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="CS2025001" required>
+
+                    </div>
+
+
+
+                    <div class="flex gap-4">
+
+                        <button type="button"
+                            class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                            onclick="closeModal('addUserModal')">
+
+                            Cancel
+
+                        </button>
+
+                        <button type="submit"
+                            class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                            Add User
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="./js/api.js"></script>
+    <script src="./js/adminAuth.js"></script>
+    <script src="./js/admin.js"></script>
+
+</body>
+
+
+
+</html>
+
+<label class="block text-sm font-semibold text-gray-900 mb-2">Message</label>
+
+<textarea
+    class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+    placeholder="Announcement content" id="announcementMessage"></textarea>
+
+</div>
+
+<button type="submit"
+    class="w-full px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-lg transition-all interactive-btn">
+
+    Publish Announcement
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+
+<!-- Announcements List -->
+
+<div class="lg:col-span-2">
+
+    <div class="modern-card rounded-3xl p-8">
+
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Announcements</h3>
+
+        <div class="space-y-4" id="announcementsList">
+
+            <!-- Announcements will be populated here -->
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Analytics Section -->
+
+<div id="analytics" class="section section-hidden">
+
+    <div class="mb-8">
+
+        <h2 class="text-3xl font-bold text-gradient">Analytics & Reports</h2>
+
+        <p class="text-gray-600 mt-2">Detailed insights and performance metrics</p>
+
+    </div>
+
+
+
+    <!-- Analytics Charts -->
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+        <div class="modern-card rounded-3xl p-8">
+
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Event Participation by Category</h3>
+
+            <div class="chart-container">
+
+                <canvas id="categoryChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="modern-card rounded-3xl p-8">
+
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Monthly Registration Trends</h3>
+
+            <div class="chart-container">
+
+                <canvas id="registrationChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Detailed Reports -->
+
+    <div class="modern-card rounded-3xl p-8">
+
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Performance Reports</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <div class="text-center p-6 glass-effect rounded-2xl">
+
+                <div class="text-3xl font-bold gradient-bg bg-clip-text text-transparent">87%</div>
+
+                <div class="text-sm text-gray-600 mt-1">Average Attendance Rate</div>
+
+            </div>
+
+            <div class="text-center p-6 glass-effect rounded-2xl">
+
+                <div class="text-3xl font-bold gradient-green bg-clip-text text-transparent">4.6</div>
+
+                <div class="text-sm text-gray-600 mt-1">Average Event Rating</div>
+
+            </div>
+
+            <div class="text-center p-6 glass-effect rounded-2xl">
+
+                <div class="text-3xl font-bold gradient-purple bg-clip-text text-transparent">95%</div>
+
+                <div class="text-sm text-gray-600 mt-1">User Satisfaction Score</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Settings Section -->
+
+<div id="settings" class="section section-hidden">
+
+    <div class="mb-8">
+
+        <h2 class="text-3xl font-bold text-gradient">System Settings</h2>
+
+        <p class="text-gray-600 mt-2">Configure system preferences and security</p>
+
+    </div>
+
+
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- General Settings -->
+
+        <div class="modern-card rounded-3xl p-8">
+
+            <h3 class="text-xl font-bold text-gray-900 mb-6">General Settings</h3>
+
+            <div class="space-y-6">
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">System Name</label>
+
+                    <input type="text" value="ZVENT - Event Management System"
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                </div>
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Default Event Duration</label>
+
+                    <select
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>2 hours</option>
+
+                        <option>3 hours</option>
+
+                        <option>4 hours</option>
+
+                        <option>Full Day</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Registration Deadline</label>
+
+                    <select
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>1 day before</option>
+
+                        <option>2 days before</option>
+
+                        <option>1 week before</option>
+
+                        <option>Custom</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Security Settings -->
+
+        <div class="modern-card rounded-3xl p-8">
+
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Security & Permissions</h3>
+
+            <div class="space-y-6">
+
+                <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                    <div>
+
+                        <div class="font-semibold text-gray-900">Two-Factor Authentication</div>
+
+                        <div class="text-sm text-gray-600">Enhanced security for admin accounts</div>
+
+                    </div>
+
+                    <label class="relative inline-flex items-center cursor-pointer">
+
+                        <input type="checkbox" class="sr-only peer" checked>
+
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+
+                    </label>
+
+                </div>
+
+                <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                    <div>
+
+                        <div class="font-semibold text-gray-900">Email Notifications</div>
+
+                        <div class="text-sm text-gray-600">Get alerts for system events</div>
+
+                    </div>
+
+                    <label class="relative inline-flex items-center cursor-pointer">
+
+                        <input type="checkbox" class="sr-only peer" checked>
+
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+
+                    </label>
+
+                </div>
+
+                <div class="flex items-center justify-between p-4 glass-effect rounded-xl">
+
+                    <div>
+
+                        <div class="font-semibold text-gray-900">Auto-backup</div>
+
+                        <div class="text-sm text-gray-600">Daily automated system backups</div>
+
+                    </div>
+
+                    <label class="relative inline-flex items-center cursor-pointer">
+
+                        <input type="checkbox" class="sr-only peer" checked>
+
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+<!-- Modals -->
+
+
+
+<!-- Create Event Modal -->
+
+<div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+    id="createEventModal">
+
+    <div class="modern-card rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+        <div class="p-8">
+
+            <div class="flex justify-between items-start mb-6">
+
+                <h2 class="text-3xl font-bold text-gradient">Create New Event</h2>
+
+                <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                    onclick="closeModal('createEventModal')">
+
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+
+            <form class="space-y-6" onsubmit="return createEvent(event)">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Event Title</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="Enter event title" required>
+
+                    </div>
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="">Select Category</option>
+
+                            <option value="technology">Technology</option>
+
+                            <option value="cultural">Cultural</option>
+
+                            <option value="sports">Sports</option>
+
+                            <option value="academic">Academic</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Date</label>
+
+                        <input type="datetime-local"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                    </div>
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Venue</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="Enter venue" required>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Organizer</label>
+
+                        <input type="text"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="Organizing committee" required>
+
+                    </div>
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Max Participants</label>
+
+                        <input type="number"
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            placeholder="100" required>
+
+                    </div>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Description</label>
+
+                    <textarea
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                        placeholder="Event description..." required></textarea>
+
+                </div>
+
+
+
+                <div class="flex gap-4">
+
+                    <button type="button"
+                        class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                        onclick="closeModal('createEventModal')">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit"
+                        class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                        Create Event
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Create Announcement Modal -->
+
+<div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+    id="createAnnouncementModal">
+
+    <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+        <div class="p-8">
+
+            <div class="flex justify-between items-start mb-6">
+
+                <h2 class="text-3xl font-bold text-gradient">Create Announcement</h2>
+
+                <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+                    onclick="closeModal('createAnnouncementModal')">
+
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+
+            <form class="space-y-6" onsubmit="return createAnnouncementFromModal(event)">
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Priority Level</label>
+
+                    <select
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        required>
+
+                        <option value="normal">Normal</option>
+
+                        <option value="important">Important</option>
+
+                        <option value="urgent">Urgent</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Category</label>
+
+                    <select
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        required>
+
+                        <option value="general">General</option>
+
+                        <option value="academic">Academic</option>
+
+                        <option value="events">Events</option>
+
+                        <option value="technical">Technical</option>
+
+                        <option value="emergency">Emergency</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Title</label>
+
+                    <input type="text"
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        placeholder="Announcement title" required>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Message</label>
+
+                    <textarea
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                        placeholder="Announcement content..." required></textarea>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Target Audience</label>
+
+                    <select
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        required>
+
+                        <option value="all">All Students</option>
+
+                        <option value="cs">Computer Science</option>
+
+                        <option value="ec">Electronics</option>
+
+                        <option value="me">Mechanical</option>
+
+                        <option value="ce">Civil Engineering</option>
+
+                        <option value="final_year">Final Year Only</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="flex gap-4">
+
+                    <button type="button"
+                        class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                        onclick="closeModal('createAnnouncementModal')">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit"
+                        class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                        Publish
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- Add User Modal -->
+
+<div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+    id="addUserModal">
+
+    <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+        <div class="p-8">
+
+            <div class="flex justify-between items-start mb-6">
+
+                <h2 class="text-3xl font-bold text-gradient">Add New User</h2>
+
+                <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors" onclick="closeModal('addUserModal')">
+
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+
+            <form class="space-y-6" onsubmit="return addUser(event)">
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Full Name</label>
+
+                    <input type="text"
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        placeholder="Enter full name" required>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Email Address</label>
+
+                    <input type="email"
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        placeholder="user@university.edu" required>
+
+                </div>
+
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Department</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="">Select Department</option>
+
+                            <option value="cs">Computer Science</option>
+
+                            <option value="ec">Electronics</option>
+
+                            <option value="me">Mechanical</option>
+
+                            <option value="ce">Civil Engineering</option>
+
+                        </select>
+
+                    </div>
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Year</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            required>
+
+                            <option value="">Select Year</option>
+
+                            <option value="1">First Year</option>
+
+                            <option value="2">Second Year</option>
+
+                            <option value="3">Third Year</option>
+
+                            <option value="4">Final Year</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block text-sm font-semibold text-gray-900 mb-2">Student ID</label>
+
+                    <input type="text"
+                        class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        placeholder="CS2025001" required>
+
+                </div>
+
+
+
+                <div class="flex gap-4">
+
+                    <button type="button"
+                        class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1"
+                        onclick="closeModal('addUserModal')">
+
+                        Cancel
+
+                    </button>
+
+                    <button type="submit"
+                        class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1">
+
+                        Add User
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="./js/api.js"></script>
+<script src="./js/adminAuth.js"></script>
+<script src="./js/admin.js"></script>
+
+</body>
+
+
+
+</html>

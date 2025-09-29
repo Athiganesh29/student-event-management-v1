@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZVENT - Student Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <link rel="stylesheet" href="./css/dasshboard.css">
+    <link rel="stylesheet" href="./css/smooth-transitions.css">
+
+
+
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 via-white to-purple-50 min-h-screen">
+
+
+
+    <!-- Floating Background Elements -->
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+
+        <div
+            class="absolute -top-40 -right-40 w-80 h-80 gradient-purple rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation">
+        </div>
+
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 gradient-blue rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation"
+            style="animation-delay: 2s;"></div>
+
+        <div class="absolute top-40 left-40 w-60 h-60 gradient-emerald rounded-full mix-blend-multiply filter blur-xl opacity-20 floating-animation"
+            style="animation-delay: 4s;"></div>
+
+    </div>
+
+
+
+    <!-- Sidebar -->
+
+    <div class="fixed left-0 top-0 h-full w-72 glass-effect z-50 p-6">
+
+        <div class="flex items-center gap-3 mb-8">
+
+            <div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white font-bold text-lg">
+
+                Z
+
+            </div>
+
+            <h1 class="text-2xl font-bold text-gradient">ZVENT</h1>
+
+        </div>
+
+
+
+        <nav class="space-y-2">
+
+            <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl active" data-section="dashboard">
+
+                <span class="text-xl">🏠</span>
+
+                <span class="font-medium">Dashboard</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="my-events">
+
+                <span class="text-xl">📅</span>
+
+                <span class="font-medium">My Events</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="recommended">
+
+                <span class="text-xl">✨</span>
+
+                <span class="font-medium">Recommended</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="announcements">
+
+                <span class="text-xl">📢</span>
+
+                <span class="font-medium">Announcements</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="achievements">
+
+                <span class="text-xl">🏆</span>
+
+                <span class="font-medium">Achievements</span>
+
+            </a>
+
+            <a href="#"
+                class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/20 transition-all duration-300 text-gray-700"
+                data-section="analytics">
+
+                <span class="text-xl">📊</span>
+
+                <span class="font-medium">Analytics</span>
+
+            </a>
+
+        </nav>
+
+    </div>
+
+
+
+    <!-- Top Bar -->
+
+    <div class="fixed top-0 left-72 right-0 h-20 glass-effect z-40 flex items-center justify-between px-8">
+
+        <div class="flex-1 max-w-xl">
+
+            <div class="relative">
+
+                <input type="text" placeholder="Search events..."
+                    class="w-full px-6 py-3 pl-12 rounded-2xl glass-effect border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder-gray-500"
+                    id="globalSearch">
+
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl">🔍</span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="flex items-center gap-4">
+
+            <div class="relative">
+
+                <button
+                    class="p-3 rounded-xl glass-effect hover:bg-white/30 transition-all duration-300 interactive-button"
+                    onclick="showNotifications()">
+
+                    <span class="text-xl">🔔</span>
+
+                </button>
+
+                <div
+                    class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs text-white font-bold notification-badge">
+                    3</div>
+
+            </div>
+
+            <div class="relative">
+                <div class="flex items-center gap-3 cursor-pointer hover:bg-white/20 rounded-xl p-2 transition-all duration-300 interactive-button"
+                    onclick="toggleProfileDropdown()">
+
+                    <div
+                        class="w-10 h-10 gradient-purple rounded-full flex items-center justify-center text-white font-semibold">
+
+                        P
+
+                    </div>
+
+                    <span class="font-medium text-gray-700" id="userName">User</span>
+
+                    <svg class="w-4 h-4 text-gray-500 transition-transform duration-200" id="dropdownArrow" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+
+                </div>
+
+                <!-- Profile Dropdown Menu -->
+                <div id="profileDropdown"
+                    class="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 opacity-0 invisible transform translate-y-2 transition-all duration-200 z-50">
+                    <div class="py-2">
+                        <a href="./profile.html"
+                            class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                            onclick="closeProfileDropdown();">
+                            <span class="text-lg">👤</span>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#"
+                            class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                            onclick="logout(); closeProfileDropdown();">
+                            <span class="text-lg">🚪</span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Main Content Container -->
+
+    <div class="ml-72 mt-20 p-8 relative z-10">
+
+
+
+        <!-- Dashboard Section -->
+
+        <div id="dashboard" class="section section-visible">
+
+            <!-- Welcome Section -->
+
+            <div class="gradient-bg rounded-3xl p-8 text-white mb-8 relative overflow-hidden sparkle">
+
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-transparent"></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+
+                    <div>
+
+                        <h2 class="text-3xl font-bold mb-2" id="welcomeMessage">Hello, User! 👋</h2>
+
+                        <p class="text-lg opacity-90">Ready to explore amazing events today?</p>
+
+                        <p class="text-sm opacity-75 mt-2">Last login: Today, 9:30 AM</p>
+
+                    </div>
+
+                    <div class="glass-effect rounded-2xl p-6 text-center">
+
+                        <div class="text-4xl font-bold mb-1">3</div>
+
+                        <div class="text-sm opacity-75">Events This Week</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Quick Stats -->
+
+            <div class="stats-grid mb-8">
+
+                <div class="metric-card rounded-2xl p-6 fade-in-up">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-gray-600 mb-1">Total Events</p>
+
+                            <p class="text-2xl font-bold text-gray-900">15</p>
+
+                            <p class="text-xs text-emerald-600 mt-1">↗ +3 this month</p>
+
+                        </div>
+
+                        <div class="w-12 h-12 gradient-blue rounded-xl flex items-center justify-center">
+
+                            <span class="text-xl">📅</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.1s;">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-gray-600 mb-1">Attendance Rate</p>
+
+                            <p class="text-2xl font-bold text-gray-900">87%</p>
+
+                            <p class="text-xs text-emerald-600 mt-1">↗ +12% improvement</p>
+
+                        </div>
+
+                        <div class="w-12 h-12 gradient-emerald rounded-xl flex items-center justify-center">
+
+                            <span class="text-xl">✅</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.2s;">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-gray-600 mb-1">Badges Earned</p>
+
+                            <p class="text-2xl font-bold text-gray-900">8</p>
+
+                            <p class="text-xs text-purple-600 mt-1">🏆 2 new this week</p>
+
+                        </div>
+
+                        <div class="w-12 h-12 gradient-orange rounded-xl flex items-center justify-center">
+
+                            <span class="text-xl">🏆</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6 fade-in-up" style="animation-delay: 0.3s;">
+
+                    <div class="flex items-center justify-between">
+
+                        <div>
+
+                            <p class="text-sm text-gray-600 mb-1">Upcoming</p>
+
+                            <p class="text-2xl font-bold text-gray-900">5</p>
+
+                            <p class="text-xs text-blue-600 mt-1">⏰ Next: Tomorrow</p>
+
+                        </div>
+
+                        <div class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center">
+
+                            <span class="text-xl">⏰</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Recent Activity Dashboard -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Recent Events -->
+
+                <div class="lg:col-span-2 modern-card rounded-3xl p-8 fade-in-up">
+
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Recent Activity</h3>
+
+                    <div class="event-timeline">
+
+                        <div class="timeline-item">
+
+                            <div class="glass-effect rounded-2xl p-4">
+
+                                <h4 class="font-bold text-gray-900">AI/ML Workshop 2024</h4>
+
+                                <p class="text-sm text-gray-600">Completed • Oct 15, 2025</p>
+
+                                <span
+                                    class="inline-block px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs mt-2">Certificate
+                                    Earned</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="timeline-item">
+
+                            <div class="glass-effect rounded-2xl p-4">
+
+                                <h4 class="font-bold text-gray-900">Cultural Night Registration</h4>
+
+                                <p class="text-sm text-gray-600">Registered • Oct 12, 2025</p>
+
+                                <span
+                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs mt-2">Upcoming</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="timeline-item">
+
+                            <div class="glass-effect rounded-2xl p-4 border-2 border-orange-200">
+
+                                <h4 class="font-bold text-gray-900">Hackathon 2024</h4>
+
+                                <p class="text-sm text-gray-600">In Progress • Oct 18-19, 2025</p>
+
+                                <span
+                                    class="inline-block px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs mt-2 pulse-dot">Live
+                                    Now</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Quick Actions & Notifications -->
+
+                <div class="space-y-6">
+
+                    <!-- Quick Actions -->
+
+                    <div class="modern-card rounded-3xl p-6 fade-in-up">
+
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Quick Actions</h3>
+
+                        <div class="space-y-3">
+
+                            <button
+                                class="w-full p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all duration-300 text-left interactive-button"
+                                onclick="openModal('registrationModal')">
+
+                                <div class="flex items-center gap-3">
+
+                                    <span class="text-2xl">➕</span>
+
+                                    <div>
+
+                                        <div class="font-semibold text-gray-900">Register Event</div>
+
+                                        <div class="text-xs text-gray-600">Join new events</div>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+                            <button
+                                class="w-full p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all duration-300 text-left interactive-button"
+                                onclick="downloadQR()">
+
+                                <div class="flex items-center gap-3">
+
+                                    <span class="text-2xl">📱</span>
+
+                                    <div>
+
+                                        <div class="font-semibold text-gray-900">QR Codes</div>
+
+                                        <div class="text-xs text-gray-600">Download tickets</div>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+                            <button
+                                class="w-full p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all duration-300 text-left interactive-button"
+                                onclick="openModal('feedbackModal')">
+
+                                <div class="flex items-center gap-3">
+
+                                    <span class="text-2xl">⭐</span>
+
+                                    <div>
+
+                                        <div class="font-semibold text-gray-900">Feedback</div>
+
+                                        <div class="text-xs text-gray-600">Rate events</div>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Latest Achievements -->
+
+                    <div class="modern-card rounded-3xl p-6 fade-in-up">
+
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Latest Achievement</h3>
+
+                        <div class="achievement-glow gradient-purple rounded-2xl p-4 text-white text-center">
+
+                            <div class="text-3xl mb-2">🌟</div>
+
+                            <div class="font-bold">Tech Enthusiast</div>
+
+                            <div class="text-xs opacity-75">Earned today</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- My Events Section -->
+
+        <div id="my-events" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <h2 class="text-3xl font-bold text-gradient">My Events</h2>
+
+                <div class="flex gap-4">
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        id="eventFilter">
+
+                        <option value="all">All Events</option>
+
+                        <option value="upcoming">Upcoming</option>
+
+                        <option value="completed">Completed</option>
+
+                        <option value="cancelled">Cancelled</option>
+
+                    </select>
+
+                    <button
+                        class="px-6 py-2 gradient-bg text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300 interactive-button"
+                        onclick="openModal('registrationModal')">
+
+                        Register New Event
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Event Categories -->
+
+            <div class="flex gap-4 mb-6 overflow-x-auto pb-2">
+
+                <button
+                    class="category-filter px-4 py-2 gradient-bg text-white rounded-xl text-sm font-medium whitespace-nowrap"
+                    data-category="all">All</button>
+
+                <button
+                    class="category-filter px-4 py-2 glass-effect rounded-xl text-sm font-medium whitespace-nowrap hover:bg-white/50"
+                    data-category="technology">Technology</button>
+
+                <button
+                    class="category-filter px-4 py-2 glass-effect rounded-xl text-sm font-medium whitespace-nowrap hover:bg-white/50"
+                    data-category="cultural">Cultural</button>
+
+                <button
+                    class="category-filter px-4 py-2 glass-effect rounded-xl text-sm font-medium whitespace-nowrap hover:bg-white/50"
+                    data-category="sports">Sports</button>
+
+                <button
+                    class="category-filter px-4 py-2 glass-effect rounded-xl text-sm font-medium whitespace-nowrap hover:bg-white/50"
+                    data-category="academic">Academic</button>
+
+            </div>
+
+
+
+            <!-- Events Grid -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" id="eventsGrid">
+
+                <!-- Event cards will be populated by JavaScript -->
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Recommended Section -->
+
+        <div id="recommended" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Recommended Events</h2>
+
+                    <p class="text-gray-600 mt-2">Personalized suggestions based on your interests</p>
+
+                </div>
+
+                <button
+                    class="px-6 py-2 glass-effect rounded-xl font-medium hover:bg-white/50 transition-all duration-300 interactive-button"
+                    onclick="refreshRecommendations()">
+
+                    <span class="text-xl mr-2">🔄</span>Refresh
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Recommendation Categories -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
+
+                <div class="modern-card rounded-3xl p-6 hover:scale-105 transition-all duration-300">
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+
+                        <span class="text-2xl">🤖</span>
+
+                        Based on AI/ML Workshop
+
+                    </h3>
+
+                    <div class="space-y-3">
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('Deep Learning Bootcamp')">
+
+                            <h4 class="font-semibold">Deep Learning Bootcamp</h4>
+
+                            <p class="text-sm text-gray-600">Nov 5, 2025 • Advanced Level</p>
+
+                        </div>
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('AI Ethics Seminar')">
+
+                            <h4 class="font-semibold">AI Ethics Seminar</h4>
+
+                            <p class="text-sm text-gray-600">Nov 8, 2025 • Discussion</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-3xl p-6 hover:scale-105 transition-all duration-300">
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+
+                        <span class="text-2xl">🎭</span>
+
+                        Cultural Activities
+
+                    </h3>
+
+                    <div class="space-y-3">
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('Dance Competition 2024')">
+
+                            <h4 class="font-semibold">Dance Competition 2024</h4>
+
+                            <p class="text-sm text-gray-600">Nov 12, 2025 • Registration Open</p>
+
+                        </div>
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('Music Festival')">
+
+                            <h4 class="font-semibold">Music Festival</h4>
+
+                            <p class="text-sm text-gray-600">Nov 20, 2025 • Outdoor Event</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modern-card rounded-3xl p-6 hover:scale-105 transition-all duration-300">
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+
+                        <span class="text-2xl">🏃</span>
+
+                        Sports & Fitness
+
+                    </h3>
+
+                    <div class="space-y-3">
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('Inter-College Cricket')">
+
+                            <h4 class="font-semibold">Inter-College Cricket</h4>
+
+                            <p class="text-sm text-gray-600">Nov 15, 2025 • Team Event</p>
+
+                        </div>
+
+                        <div class="p-3 glass-effect rounded-xl cursor-pointer hover:bg-white/50 transition-all"
+                            onclick="showEventDetails('Yoga Workshop')">
+
+                            <h4 class="font-semibold">Yoga Workshop</h4>
+
+                            <p class="text-sm text-gray-600">Nov 18, 2025 • Wellness</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Trending Events -->
+
+            <div class="modern-card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">🔥 Trending This Week</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div class="group p-4 gradient-bg rounded-2xl text-white cursor-pointer hover:scale-105 transition-all duration-300"
+                        onclick="showEventDetails('Startup Pitch Contest')">
+
+                        <h4 class="font-bold mb-2">Startup Pitch Contest</h4>
+
+                        <p class="text-sm opacity-90">Nov 25, 2025 • Innovation Hub</p>
+
+                        <div class="flex items-center mt-2">
+
+                            <span class="text-xs bg-white/20 px-2 py-1 rounded-full">250+ Interested</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="group p-4 gradient-purple rounded-2xl text-white cursor-pointer hover:scale-105 transition-all duration-300"
+                        onclick="showEventDetails('Photography Workshop')">
+
+                        <h4 class="font-bold mb-2">Photography Workshop</h4>
+
+                        <p class="text-sm opacity-90">Nov 28, 2025 • Art Studio</p>
+
+                        <div class="flex items-center mt-2">
+
+                            <span class="text-xs bg-white/20 px-2 py-1 rounded-full">180+ Interested</span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="group p-4 gradient-emerald rounded-2xl text-white cursor-pointer hover:scale-105 transition-all duration-300"
+                        onclick="showEventDetails('Coding Bootcamp')">
+
+                        <h4 class="font-bold mb-2">Coding Bootcamp</h4>
+
+                        <p class="text-sm opacity-90">Dec 2, 2025 • CS Lab</p>
+
+                        <div class="flex items-center mt-2">
+
+                            <span class="text-xs bg-white/20 px-2 py-1 rounded-full">320+ Interested</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Announcements Section -->
+
+        <div id="announcements" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Announcements</h2>
+
+                    <p class="text-gray-600 mt-2">Important updates and notifications</p>
+
+                </div>
+
+                <div class="flex gap-4">
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+
+                        <option>All Announcements</option>
+
+                        <option>Academic</option>
+
+                        <option>Events</option>
+
+                        <option>General</option>
+
+                    </select>
+
+                    <button
+                        class="px-6 py-2 glass-effect rounded-xl font-medium hover:bg-white/50 transition-all duration-300 interactive-button">
+
+                        Mark All Read
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Priority Announcements -->
+
+            <div class="mb-8">
+
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+
+                    <span class="text-2xl">🚨</span>
+
+                    Priority Announcements
+
+                </h3>
+
+                <div class="space-y-4">
+
+                    <div class="modern-card rounded-3xl p-6 border-l-4 border-red-500">
+
+                        <div class="flex justify-between items-start mb-4">
+
+                            <h4 class="text-lg font-bold text-gray-900">Tech Fest Registration Deadline Extended</h4>
+
+                            <span
+                                class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">Urgent</span>
+
+                        </div>
+
+                        <p class="text-gray-600 mb-4">Due to popular demand, we've extended the registration deadline
+                            for Tech Fest 2024 until November 30th. Don't miss your chance to participate in the biggest
+                            tech event of the year!</p>
+
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+
+                            <span>📅 Posted: Oct 20, 2025</span>
+
+                            <span>👥 Academic Office</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="modern-card rounded-3xl p-6 border-l-4 border-orange-500">
+
+                        <div class="flex justify-between items-start mb-4">
+
+                            <h4 class="text-lg font-bold text-gray-900">Campus WiFi Maintenance</h4>
+
+                            <span
+                                class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-medium">Important</span>
+
+                        </div>
+
+                        <p class="text-gray-600 mb-4">Campus WiFi will undergo scheduled maintenance on October 25th
+                            from 2:00 AM to 6:00 AM. Temporary disruptions may occur during this period.</p>
+
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+
+                            <span>📅 Posted: Oct 18, 2025</span>
+
+                            <span>👥 IT Department</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Regular Announcements -->
+
+            <div class="modern-card rounded-3xl p-8">
+
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Recent Announcements</h3>
+
+                <div class="space-y-6">
+
+                    <div
+                        class="flex items-start gap-4 p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all cursor-pointer">
+
+                        <div
+                            class="w-12 h-12 gradient-blue rounded-xl flex items-center justify-center text-white text-xl">
+                            📚</div>
+
+                        <div class="flex-1">
+
+                            <h4 class="font-bold text-gray-900">New Library Hours</h4>
+
+                            <p class="text-gray-600 text-sm mb-2">Extended library hours during exam season. Open 24/7
+                                from Nov 1-30.</p>
+
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+
+                                <span>Oct 15, 2025</span>
+
+                                <span>Library Administration</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center gap-2">
+
+                            <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        class="flex items-start gap-4 p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all cursor-pointer">
+
+                        <div
+                            class="w-12 h-12 gradient-emerald rounded-xl flex items-center justify-center text-white text-xl">
+                            🍕</div>
+
+                        <div class="flex-1">
+
+                            <h4 class="font-bold text-gray-900">New Cafeteria Menu</h4>
+
+                            <p class="text-gray-600 text-sm mb-2">Exciting new dishes added to our cafeteria menu. Check
+                                out the healthy options!</p>
+
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+
+                                <span>Oct 12, 2025</span>
+
+                                <span>Cafeteria Services</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center gap-2">
+
+                            <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        class="flex items-start gap-4 p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all cursor-pointer">
+
+                        <div
+                            class="w-12 h-12 gradient-purple rounded-xl flex items-center justify-center text-white text-xl">
+                            🎓</div>
+
+                        <div class="flex-1">
+
+                            <h4 class="font-bold text-gray-900">Scholarship Applications Open</h4>
+
+                            <p class="text-gray-600 text-sm mb-2">Merit-based scholarship applications are now open.
+                                Deadline: November 15th.</p>
+
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+
+                                <span>Oct 10, 2025</span>
+
+                                <span>Student Affairs</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center gap-2">
+
+                            <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        class="flex items-start gap-4 p-4 glass-effect rounded-2xl hover:bg-white/50 transition-all cursor-pointer">
+
+                        <div
+                            class="w-12 h-12 gradient-orange rounded-xl flex items-center justify-center text-white text-xl">
+                            🚌</div>
+
+                        <div class="flex-1">
+
+                            <h4 class="font-bold text-gray-900">Bus Schedule Update</h4>
+
+                            <p class="text-gray-600 text-sm mb-2">Updated bus timings for Route 3 and Route 7. Check the
+                                transportation portal for details.</p>
+
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+
+                                <span>Oct 8, 2025</span>
+
+                                <span>Transportation</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="flex items-center gap-2">
+
+                            <span class="w-3 h-3 bg-gray-300 rounded-full"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Achievements Section -->
+
+        <div id="achievements" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Achievements & Badges</h2>
+
+                    <p class="text-gray-600 mt-2">Your accomplishments and milestones</p>
+
+                </div>
+
+                <div class="flex gap-4">
+
+                    <button
+                        class="px-6 py-2 glass-effect rounded-xl font-medium hover:bg-white/50 transition-all duration-300 interactive-button">
+
+                        Share Progress
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Achievement Stats -->
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+
+                <div class="modern-card rounded-2xl p-6 text-center">
+
+                    <div class="text-3xl font-bold gradient-bg bg-clip-text text-transparent">8</div>
+
+                    <div class="text-sm text-gray-600 mt-1">Total Badges</div>
+
+                </div>
+
+                <div class="modern-card rounded-2xl p-6 text-center">
+
+                    <div class="text-3xl font-bold gradient-purple bg-clip-text text-transparent">87%</div>
+
+                    <div class="text-sm text-gray-600 mt-1">Completion Rate</div>
+
+                </div>
+
+                <div class="modern-card rounded-2xl p-6 text-center">
+
+                    <div class="text-3xl font-bold gradient-emerald bg-clip-text text-transparent">15</div>
+
+                    <div class="text-sm text-gray-600 mt-1">Events Attended</div>
+
+                </div>
+
+                <div class="modern-card rounded-2xl p-6 text-center">
+
+                    <div class="text-3xl font-bold gradient-orange bg-clip-text text-transparent">3</div>
+
+                    <div class="text-sm text-gray-600 mt-1">Leadership Roles</div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Achievement Categories -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Earned Badges -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+
+                        <span class="text-2xl">🏆</span>
+
+                        Earned Badges
+
+                    </h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+
+                        <div class="achievement-glow gradient-bg rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('First Event')">
+
+                            <div class="text-3xl mb-2">🎉</div>
+
+                            <div class="text-sm font-bold">First Event</div>
+
+                            <div class="text-xs opacity-75">Registered</div>
+
+                        </div>
+
+                        <div class="achievement-glow gradient-purple rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('Cultural Star')">
+
+                            <div class="text-3xl mb-2">🌟</div>
+
+                            <div class="text-sm font-bold">Cultural Star</div>
+
+                            <div class="text-xs opacity-75">3+ Events</div>
+
+                        </div>
+
+                        <div class="achievement-glow gradient-emerald rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('Tech Enthusiast')">
+
+                            <div class="text-3xl mb-2">🤖</div>
+
+                            <div class="text-sm font-bold">Tech Enthusiast</div>
+
+                            <div class="text-xs opacity-75">AI/ML Focus</div>
+
+                        </div>
+
+                        <div class="achievement-glow gradient-orange rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('Active Member')">
+
+                            <div class="text-3xl mb-2">🤝</div>
+
+                            <div class="text-sm font-bold">Active Member</div>
+
+                            <div class="text-xs opacity-75">Club Participant</div>
+
+                        </div>
+
+                        <div class="achievement-glow gradient-pink rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('Feedback Champion')">
+
+                            <div class="text-3xl mb-2">📝</div>
+
+                            <div class="text-sm font-bold">Feedback Champion</div>
+
+                            <div class="text-xs opacity-75">5+ Reviews</div>
+
+                        </div>
+
+                        <div class="achievement-glow gradient-cyan rounded-2xl p-4 text-white text-center cursor-pointer sparkle"
+                            onclick="showAchievementDetails('Networking Pro')">
+
+                            <div class="text-3xl mb-2">🌐</div>
+
+                            <div class="text-sm font-bold">Networking Pro</div>
+
+                            <div class="text-xs opacity-75">Connected</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Progress & Upcoming -->
+
+                <div class="space-y-6">
+
+                    <!-- Current Progress -->
+
+                    <div class="modern-card rounded-3xl p-6">
+
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">In Progress</h3>
+
+                        <div class="space-y-4">
+
+                            <div>
+
+                                <div class="flex justify-between items-center mb-2">
+
+                                    <span class="text-sm font-medium text-gray-700">Event Master 🏆</span>
+
+                                    <span class="text-xs text-gray-500">8/15</span>
+
+                                </div>
+
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+
+                                    <div class="gradient-bg h-2 rounded-full transition-all duration-500"
+                                        style="width: 53%;"></div>
+
+                                </div>
+
+                                <p class="text-xs text-gray-600 mt-1">Attend 15 events to unlock</p>
+
+                            </div>
+
+                            <div>
+
+                                <div class="flex justify-between items-center mb-2">
+
+                                    <span class="text-sm font-medium text-gray-700">Leadership Excellence 👑</span>
+
+                                    <span class="text-xs text-gray-500">1/3</span>
+
+                                </div>
+
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+
+                                    <div class="gradient-purple h-2 rounded-full transition-all duration-500"
+                                        style="width: 33%;"></div>
+
+                                </div>
+
+                                <p class="text-xs text-gray-600 mt-1">Lead 3 events or committees</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Recent Achievements -->
+
+                    <div class="modern-card rounded-3xl p-6">
+
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Recent Unlocks</h3>
+
+                        <div class="space-y-3">
+
+                            <div class="flex items-center gap-3 p-3 glass-effect rounded-xl">
+
+                                <span class="text-2xl">🌟</span>
+
+                                <div>
+
+                                    <div class="font-semibold text-sm">Tech Enthusiast</div>
+
+                                    <div class="text-xs text-gray-600">Earned 2 hours ago</div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex items-center gap-3 p-3 glass-effect rounded-xl">
+
+                                <span class="text-2xl">📝</span>
+
+                                <div>
+
+                                    <div class="font-semibold text-sm">Feedback Champion</div>
+
+                                    <div class="text-xs text-gray-600">Earned yesterday</div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="flex items-center gap-3 p-3 glass-effect rounded-xl">
+
+                                <span class="text-2xl">🌐</span>
+
+                                <div>
+
+                                    <div class="font-semibold text-sm">Networking Pro</div>
+
+                                    <div class="text-xs text-gray-600">Earned 2 days ago</div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Analytics Section -->
+
+        <div id="analytics" class="section section-hidden">
+
+            <div class="flex justify-between items-center mb-8">
+
+                <div>
+
+                    <h2 class="text-3xl font-bold text-gradient">Analytics Dashboard</h2>
+
+                    <p class="text-gray-600 mt-2">Insights into your event participation</p>
+
+                </div>
+
+                <div class="flex gap-4">
+
+                    <select
+                        class="px-4 py-2 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        id="analyticsTimeframe">
+
+                        <option>Last 30 days</option>
+
+                        <option>Last 3 months</option>
+
+                        <option>Last 6 months</option>
+
+                        <option>This year</option>
+
+                    </select>
+
+                    <button
+                        class="px-6 py-2 glass-effect rounded-xl font-medium hover:bg-white/50 transition-all duration-300 interactive-button">
+
+                        Export Data
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Key Metrics -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+                <div class="metric-card rounded-2xl p-6">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <span class="text-sm text-gray-600">Total Participation</span>
+
+                        <span class="text-2xl">📊</span>
+
+                    </div>
+
+                    <div class="text-2xl font-bold text-gray-900">15</div>
+
+                    <div class="text-xs text-emerald-600 mt-1">↗ +25% from last month</div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <span class="text-sm text-gray-600">Attendance Rate</span>
+
+                        <span class="text-2xl">✅</span>
+
+                    </div>
+
+                    <div class="text-2xl font-bold text-gray-900">87%</div>
+
+                    <div class="text-xs text-emerald-600 mt-1">↗ +12% improvement</div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <span class="text-sm text-gray-600">Average Rating</span>
+
+                        <span class="text-2xl">⭐</span>
+
+                    </div>
+
+                    <div class="text-2xl font-bold text-gray-900">4.6</div>
+
+                    <div class="text-xs text-gray-600 mt-1">Based on 12 ratings</div>
+
+                </div>
+
+
+
+                <div class="metric-card rounded-2xl p-6">
+
+                    <div class="flex items-center justify-between mb-4">
+
+                        <span class="text-sm text-gray-600">Engagement Score</span>
+
+                        <span class="text-2xl">🎯</span>
+
+                    </div>
+
+                    <div class="text-2xl font-bold text-gray-900">94</div>
+
+                    <div class="text-xs text-purple-600 mt-1">Excellent level</div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Charts Section -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+
+                <!-- Participation Trend -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Participation Trend</h3>
+
+                    <div class="chart-container">
+
+                        <canvas id="participationChart"></canvas>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Event Categories -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Event Categories</h3>
+
+                    <div class="chart-container">
+
+                        <canvas id="categoryChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Detailed Analytics -->
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Activity Heatmap -->
+
+                <div class="modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Activity Heatmap</h3>
+
+                    <div class="grid grid-cols-7 gap-1 mb-4">
+
+                        <!-- Week days -->
+
+                        <div class="text-xs text-gray-500 text-center p-1">S</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">M</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">T</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">W</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">T</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">F</div>
+
+                        <div class="text-xs text-gray-500 text-center p-1">S</div>
+
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-1" id="activityHeatmap">
+
+                        <!-- Heatmap will be generated by JavaScript -->
+
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4 text-xs text-gray-500">
+
+                        <span>Less</span>
+
+                        <div class="flex gap-1">
+
+                            <div class="w-3 h-3 bg-gray-100 rounded"></div>
+
+                            <div class="w-3 h-3 bg-blue-200 rounded"></div>
+
+                            <div class="w-3 h-3 bg-blue-400 rounded"></div>
+
+                            <div class="w-3 h-3 bg-blue-600 rounded"></div>
+
+                            <div class="w-3 h-3 bg-blue-800 rounded"></div>
+
+                        </div>
+
+                        <span>More</span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Performance Insights -->
+
+                <div class="lg:col-span-2 modern-card rounded-3xl p-8">
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Performance Insights</h3>
+
+                    <div class="space-y-6">
+
+                        <div class="flex items-start gap-4 p-4 gradient-bg rounded-2xl text-white">
+
+                            <span class="text-2xl">🎯</span>
+
+                            <div>
+
+                                <h4 class="font-bold mb-1">Excellent Attendance</h4>
+
+                                <p class="text-sm opacity-90">Your attendance rate of 87% is above the campus average of
+                                    72%.</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="flex items-start gap-4 p-4 gradient-purple rounded-2xl text-white">
+
+                            <span class="text-2xl">📈</span>
+
+                            <div>
+
+                                <h4 class="font-bold mb-1">Growing Engagement</h4>
+
+                                <p class="text-sm opacity-90">Your event participation has increased by 25% this month.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="flex items-start gap-4 p-4 gradient-emerald rounded-2xl text-white">
+
+                            <span class="text-2xl">🌟</span>
+
+                            <div>
+
+                                <h4 class="font-bold mb-1">Diverse Interests</h4>
+
+                                <p class="text-sm opacity-90">You've participated in 4 different event categories this
+                                    semester.</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="flex items-start gap-4 p-4 gradient-orange rounded-2xl text-white">
+
+                            <span class="text-2xl">🏆</span>
+
+                            <div>
+
+                                <h4 class="font-bold mb-1">Achievement Unlocked</h4>
+
+                                <p class="text-sm opacity-90">You're on track to earn the "Event Master" badge next
+                                    month!</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal Components -->
+
+
+
+    <!-- Event Detail Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="eventModal">
+
+        <div class="modern-card rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Event Details</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors interactive-button"
+                        onclick="closeModal('eventModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <div id="eventModalContent">
+
+                    <!-- Content will be populated by JavaScript -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Registration Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="registrationModal">
+
+        <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Register for Event</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors interactive-button"
+                        onclick="closeModal('registrationModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <form class="space-y-6" onsubmit="return submitRegistration(event)">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Event Category</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            id="regCategory">
+
+                            <option value="">Select Category</option>
+
+                            <option value="technology">Technology</option>
+
+                            <option value="cultural">Cultural</option>
+
+                            <option value="sports">Sports</option>
+
+                            <option value="academic">Academic</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Event Name</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            id="regEventName">
+
+                            <option value="">Choose an event...</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Special Requirements</label>
+
+                        <textarea
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[100px]"
+                            placeholder="Any dietary restrictions, accessibility needs, etc."
+                            id="regRequirements"></textarea>
+
+                    </div>
+
+
+
+                    <div class="flex gap-4">
+
+                        <button type="button"
+                            class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1 interactive-button"
+                            onclick="closeModal('registrationModal')">Cancel</button>
+
+                        <button type="submit"
+                            class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1 interactive-button">
+
+                            Register Now
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Profile Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="profileModal">
+
+        <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">My Profile</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors interactive-button"
+                        onclick="closeModal('profileModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="text-center mb-8">
+
+                    <div
+                        class="w-24 h-24 gradient-purple rounded-full flex items-center justify-center text-4xl text-white mx-auto mb-4">
+                        P</div>
+
+                    <h3 class="text-2xl font-bold text-gray-900" id="profileName">User Name</h3>
+
+                    <p class="text-gray-600">Computer Science Engineering<br>Final Year | Student ID: CS2025001</p>
+
+                </div>
+
+
+
+                <div class="grid grid-cols-3 gap-4 mb-8">
+
+                    <div class="text-center p-4 glass-effect rounded-2xl">
+
+                        <div class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">15</div>
+
+                        <div class="text-sm text-gray-600">Events</div>
+
+                    </div>
+
+                    <div class="text-center p-4 glass-effect rounded-2xl">
+
+                        <div class="text-2xl font-bold gradient-purple bg-clip-text text-transparent">8</div>
+
+                        <div class="text-sm text-gray-600">Badges</div>
+
+                    </div>
+
+                    <div class="text-center p-4 glass-effect rounded-2xl">
+
+                        <div class="text-2xl font-bold gradient-emerald bg-clip-text text-transparent">87%</div>
+
+                        <div class="text-sm text-gray-600">Attendance</div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="space-y-4 mb-8">
+
+                    <h4 class="text-lg font-bold text-gray-900">Contact Information</h4>
+
+                    <div class="space-y-3">
+
+                        <div class="flex items-center gap-3 p-3 glass-effect rounded-xl">
+
+                            <span class="text-xl">📧</span>
+
+                            <div class="text-sm">priya.sharma@university.edu</div>
+
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 glass-effect rounded-xl">
+
+                            <span class="text-xl">📱</span>
+
+                            <div class="text-sm">+91 98765 43210</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="flex gap-4">
+
+                    <button
+                        class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1 interactive-button"
+                        onclick="closeModal('profileModal')">Close</button>
+
+                    <button
+                        class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1 interactive-button">
+
+                        Edit Profile
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Feedback Modal -->
+
+    <div class="fixed inset-0 modal-backdrop flex items-center justify-center z-[100] opacity-0 invisible transition-all duration-300"
+        id="feedbackModal">
+
+        <div class="modern-card rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto slide-in">
+
+            <div class="p-8">
+
+                <div class="flex justify-between items-start mb-6">
+
+                    <h2 class="text-3xl font-bold text-gradient">Event Feedback</h2>
+
+                    <button class="p-2 hover:bg-gray-100 rounded-xl transition-colors interactive-button"
+                        onclick="closeModal('feedbackModal')">
+
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+
+                        </svg>
+
+                    </button>
+
+                </div>
+
+
+
+                <form class="space-y-6" onsubmit="return submitFeedback(event)">
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Select Event</label>
+
+                        <select
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                            id="feedbackEvent">
+
+                            <option value="">Choose an event...</option>
+
+                            <option value="ai-workshop">AI/ML Workshop 2024</option>
+
+                            <option value="hackathon">Hackathon 2024</option>
+
+                            <option value="cultural-night">Cultural Night 2024</option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Overall Rating</label>
+
+                        <div class="flex gap-2" id="starRating">
+
+                            <button type="button" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors"
+                                onclick="setRating(1)">⭐</button>
+
+                            <button type="button" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors"
+                                onclick="setRating(2)">⭐</button>
+
+                            <button type="button" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors"
+                                onclick="setRating(3)">⭐</button>
+
+                            <button type="button" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors"
+                                onclick="setRating(4)">⭐</button>
+
+                            <button type="button" class="text-2xl text-gray-300 hover:text-yellow-400 transition-colors"
+                                onclick="setRating(5)">⭐</button>
+
+                        </div>
+
+                        <input type="hidden" id="ratingValue" value="0">
+
+                    </div>
+
+
+
+                    <div>
+
+                        <label class="block text-sm font-semibold text-gray-900 mb-2">Your Feedback</label>
+
+                        <textarea
+                            class="w-full px-4 py-3 glass-effect rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[120px]"
+                            placeholder="Share your experience and suggestions..." id="feedbackText"></textarea>
+
+                    </div>
+
+
+
+                    <div class="flex gap-4">
+
+                        <button type="button"
+                            class="px-6 py-3 glass-effect rounded-xl font-semibold hover:bg-white/50 transition-all duration-300 flex-1 interactive-button"
+                            onclick="closeModal('feedbackModal')">Cancel</button>
+
+                        <button type="submit"
+                            class="px-6 py-3 gradient-bg text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 flex-1 interactive-button">
+
+                            Submit Feedback
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/userDashboard.js"></script>
+    <script src="./js/dashboard.js"></script>
+
+</body>
+
+
+
+</html>

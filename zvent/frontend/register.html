@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Event Hub - Complete Your Profile</title>
+
+    <link rel="stylesheet" href="./css/register.css">
+
+
+
+</head>
+
+<body>
+
+    <div class="background-pattern"></div>
+
+
+
+    <div class="container">
+
+        <header class="header">
+
+            <a href="./dashboard.html" class="back-btn">
+
+                <span>←</span>
+
+                Go to Dashboard
+
+            </a>
+
+            <div class="header-content">
+
+                <h1>Complete Your Profile</h1>
+
+                <p>Set up your campus event management account</p>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="form-container">
+
+            <aside class="steps-sidebar">
+
+                <div class="sidebar-header">
+
+                    <h3>Setup Progress</h3>
+
+                    <p>Complete all steps to start managing events</p>
+
+                    <div class="progress-bar">
+
+                        <div class="progress-fill" id="progressBar" style="width: 50%;"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="step active" data-step="profile">
+
+                    <div class="step-indicator">1</div>
+
+                    <div class="step-content">
+
+                        <h4>Profile Details</h4>
+
+                        <p>Personal information and preferences</p>
+
+                    </div>
+
+                    <div class="step-arrow">→</div>
+
+                </div>
+
+
+
+                <div class="step" data-step="organization">
+
+                    <div class="step-indicator">2</div>
+
+                    <div class="step-content">
+
+                        <h4>Organization Details</h4>
+
+                        <p>Campus and department information</p>
+
+                    </div>
+
+                    <div class="step-arrow">→</div>
+
+                </div>
+
+            </aside>
+
+
+
+            <main class="form-section">
+
+                <!-- Profile Details Form -->
+
+                <div id="profileForm" class="form-content">
+
+                    <div class="form-header">
+
+                        <h2 class="form-title">Profile Details</h2>
+
+                        <p class="form-subtitle">Tell us about yourself to personalize your experience</p>
+
+                    </div>
+
+
+
+                    <div class="profile-image-section">
+
+                        <div class="profile-image-container">
+
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjYwIiBmaWxsPSIjZjNmNGY2Ii8+CjxzdmcgeD0iMzAiIHk9IjIwIiB3aWR0aD0iNjAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzljYTNhZiI+CjxwYXRoIGQ9Ik0xMiAxMmMyLjIxIDAgNC0xLjc5IDQtNHMtMS43OS00LTQtNC00IDEuNzktNCA0IDEuNzkgNCA0IDR6bTAgMmMtMi42NyAwLTggMS4zNC04IDR2MmgxNnYtMmMwLTIuNjYtNS4zMy00LTQtNHoiLz4KPC9zdmc+Cjwvc3ZnPg=="
+                                alt="Profile" class="profile-image" id="profileImage">
+
+                            <button type="button" class="upload-btn" onclick="changeImage()">📷</button>
+
+                        </div>
+
+                        <p class="upload-text">Upload a professional profile picture. Accepted formats: JPG, PNG.
+                            Recommended size: 200x200px</p>
+
+                    </div>
+
+
+
+                    <form id="profileDetailsForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label class="form-label">Title<span class="required">*</span></label>
+
+                                <select class="form-select" name="title" required>
+
+                                    <option value="">Select Title</option>
+
+                                    <option value="Mr">Mr</option>
+
+                                    <option value="Ms">Ms</option>
+
+                                    <option value="Mrs">Mrs</option>
+
+                                    <option value="Dr">Dr</option>
+
+                                    <option value="Prof">Prof</option>
+
+                                </select>
+
+                                <span class="input-icon">👤</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Full Name<span class="required">*</span></label>
+
+                                <input type="text" class="form-input" name="fullName" placeholder="Enter your full name"
+                                    required>
+
+                                <span class="input-icon">✏️</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Email Address<span class="required">*</span></label>
+
+                                <input type="email" class="form-input" name="email"
+                                    placeholder="your.email@university.edu" required>
+
+                                <span class="input-icon">📧</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Date of Birth<span class="required">*</span></label>
+
+                                <input type="date" class="form-input" name="dateOfBirth" required>
+
+                                <span class="input-icon">📅</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Gender<span class="required">*</span></label>
+
+                                <select class="form-select" name="gender" required>
+
+                                    <option value="">Select Gender</option>
+
+                                    <option value="male">Male</option>
+
+                                    <option value="female">Female</option>
+
+                                    <option value="other">Other</option>
+
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+
+                                </select>
+
+                                <span class="input-icon">👤</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Phone Code<span class="required">*</span></label>
+
+                                <select class="form-select" name="phoneCode" required>
+
+                                    <option value="+91">🇮🇳 +91 (India)</option>
+
+                                    <option value="+1">🇺🇸 +1 (USA)</option>
+
+                                    <option value="+44">🇬🇧 +44 (UK)</option>
+
+                                    <option value="+61">🇦🇺 +61 (Australia)</option>
+
+                                    <option value="+81">🇯🇵 +81 (Japan)</option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Mobile Number</label>
+
+                                <input type="tel" class="form-input" name="mobile" placeholder="Enter mobile number">
+
+                                <span class="input-icon">📱</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Student/Staff ID<span class="required">*</span></label>
+
+                                <input type="text" class="form-input" name="studentId"
+                                    placeholder="Enter your ID number" required>
+
+                                <span class="input-icon">🆔</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Role<span class="required">*</span></label>
+
+                                <select class="form-select" name="role" required>
+
+                                    <option value="">Select Role</option>
+
+                                    <option value="student">Student</option>
+
+                                    <option value="faculty">Faculty</option>
+
+                                </select>
+
+                                <span class="input-icon">👥</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Department/Faculty<span class="required">*</span></label>
+
+                                <select class="form-select" name="department" required>
+
+                                    <option value="">Select Department</option>
+
+                                    <option value="computer-science">Computer Science</option>
+
+                                    <option value="engineering">Engineering</option>
+
+                                    <option value="business">Business Administration</option>
+
+                                    <option value="arts">Arts & Humanities</option>
+
+                                    <option value="science">Natural Sciences</option>
+
+                                    <option value="social-science">Social Sciences</option>
+
+                                    <option value="medicine">Medicine</option>
+
+                                    <option value="education">Education</option>
+
+                                    <option value="other">Other</option>
+
+                                </select>
+
+                                <span class="input-icon">🏫</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Timezone<span class="required">*</span></label>
+
+                                <select class="form-select" name="timezone" required>
+
+                                    <option value="Asia/Kolkata">🇮🇳 India Standard Time (GMT +05:30)</option>
+
+                                    <option value="America/New_York">🇺🇸 Eastern Time (GMT -05:00)</option>
+
+                                    <option value="Europe/London">🇬🇧 Greenwich Mean Time (GMT +00:00)</option>
+
+                                    <option value="Asia/Tokyo">🇯🇵 Japan Standard Time (GMT +09:00)</option>
+
+                                    <option value="Australia/Sydney">🇦🇺 Australian Eastern Time (GMT +10:00)</option>
+
+                                </select>
+
+                                <span class="input-icon">🌍</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Bio/About</label>
+
+                                <textarea class="form-textarea" name="bio"
+                                    placeholder="Tell us a bit about yourself and your interests in event management..."></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="checkbox-group">
+
+                            <input type="checkbox" class="checkbox" id="notifications" name="notifications" checked>
+
+                            <label for="notifications" class="checkbox-label">
+
+                                Send me email notifications about upcoming events and announcements
+
+                            </label>
+
+                        </div>
+
+
+
+                        <div class="form-actions">
+
+                            <button type="button" class="btn btn-secondary">Skip for now</button>
+
+                            <button type="submit" class="btn btn-primary">
+
+                                Save & Continue
+
+                                <span>→</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+
+                <!-- Organization Details Form -->
+
+                <div id="organizationForm" class="form-content hidden">
+
+                    <div class="form-header">
+
+                        <h2 class="form-title">Organization Details</h2>
+
+                        <p class="form-subtitle">Setup your campus organization for event management</p>
+
+                    </div>
+
+
+
+                    <form id="organizationDetailsForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">University/Institution Name<span
+                                        class="required">*</span></label>
+
+                                <input type="text" class="form-input" name="universityName"
+                                    placeholder="Enter your university name" required>
+
+                                <span class="input-icon">🏛️</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Campus Location<span class="required">*</span></label>
+
+                                <input type="text" class="form-input" name="campusLocation"
+                                    placeholder="Main Campus, City" required>
+
+                                <span class="input-icon">📍</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Organization Type<span class="required">*</span></label>
+
+                                <select class="form-select" name="orgType" required>
+
+                                    <option value="">Select Type</option>
+
+                                    <option value="student-club">Student Club</option>
+
+                                    <option value="department">Academic Department</option>
+
+                                    <option value="student-union">Student Union</option>
+
+                                    <option value="cultural-society">Cultural Society</option>
+
+                                    <option value="sports-team">Sports Team</option>
+
+                                    <option value="academic-society">Academic Society</option>
+
+                                    <option value="volunteer-group">Volunteer Group</option>
+
+                                    <option value="professional-body">Professional Body</option>
+
+                                </select>
+
+                                <span class="input-icon">🏢</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Organization Name<span class="required">*</span></label>
+
+                                <input type="text" class="form-input" name="organizationName"
+                                    placeholder="Enter your organization/club name" required>
+
+                                <span class="input-icon">🎯</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Your Position<span class="required">*</span></label>
+
+                                <select class="form-select" name="position" required>
+
+                                    <option value="">Select Position</option>
+
+                                    <option value="president">President</option>
+
+                                    <option value="vice-president">Vice President</option>
+
+                                    <option value="secretary">Secretary</option>
+
+                                    <option value="treasurer">Treasurer</option>
+
+                                    <option value="event-coordinator">Event Coordinator</option>
+
+                                    <option value="committee-member">Committee Member</option>
+
+                                    <option value="faculty-advisor">Faculty Advisor</option>
+
+                                    <option value="department-head">Department Head</option>
+
+                                </select>
+
+                                <span class="input-icon">👑</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Organization Size</label>
+
+                                <select class="form-select" name="orgSize">
+
+                                    <option value="">Select Size</option>
+
+                                    <option value="small">Small (1-25 members)</option>
+
+                                    <option value="medium">Medium (26-100 members)</option>
+
+                                    <option value="large">Large (101-500 members)</option>
+
+                                    <option value="very-large">Very Large (500+ members)</option>
+
+                                </select>
+
+                                <span class="input-icon">👥</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Primary Focus Areas<span class="required">*</span></label>
+
+                                <div
+                                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="academic" name="focusAreas"
+                                            value="academic">
+
+                                        <label for="academic" class="checkbox-label">Academic Events</label>
+
+                                    </div>
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="cultural" name="focusAreas"
+                                            value="cultural">
+
+                                        <label for="cultural" class="checkbox-label">Cultural Events</label>
+
+                                    </div>
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="sports" name="focusAreas"
+                                            value="sports">
+
+                                        <label for="sports" class="checkbox-label">Sports Events</label>
+
+                                    </div>
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="tech" name="focusAreas"
+                                            value="tech">
+
+                                        <label for="tech" class="checkbox-label">Tech Events</label>
+
+                                    </div>
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="social" name="focusAreas"
+                                            value="social">
+
+                                        <label for="social" class="checkbox-label">Social Events</label>
+
+                                    </div>
+
+                                    <div class="checkbox-group">
+
+                                        <input type="checkbox" class="checkbox" id="volunteer" name="focusAreas"
+                                            value="volunteer">
+
+                                        <label for="volunteer" class="checkbox-label">Volunteer Work</label>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Expected Events Per Semester</label>
+
+                                <select class="form-select" name="eventFrequency">
+
+                                    <option value="">Select Frequency</option>
+
+                                    <option value="1-3">1-3 events</option>
+
+                                    <option value="4-6">4-6 events</option>
+
+                                    <option value="7-10">7-10 events</option>
+
+                                    <option value="11+">11+ events</option>
+
+                                </select>
+
+                                <span class="input-icon">📅</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Average Event Size</label>
+
+                                <select class="form-select" name="eventSize">
+
+                                    <option value="">Select Size</option>
+
+                                    <option value="small">Small (1-50 people)</option>
+
+                                    <option value="medium">Medium (51-200 people)</option>
+
+                                    <option value="large">Large (201-500 people)</option>
+
+                                    <option value="very-large">Very Large (500+ people)</option>
+
+                                </select>
+
+                                <span class="input-icon">🎪</span>
+
+                            </div>
+
+
+
+                            <div class="form-group full-width">
+
+                                <label class="form-label">Organization Description</label>
+
+                                <textarea class="form-textarea" name="orgDescription"
+                                    placeholder="Describe your organization's mission, goals, and activities..."></textarea>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Organization Website</label>
+
+                                <input type="url" class="form-input" name="website"
+                                    placeholder="https://your-org-website.com">
+
+                                <span class="input-icon">🌐</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Contact Phone<span class="required">*</span></label>
+
+                                <input type="tel" class="form-input" name="contactPhone"
+                                    placeholder="Enter contact phone number" required>
+
+                                <span class="input-icon">📞</span>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="form-label">Contact Email<span class="required">*</span></label>
+
+                                <input type="email" class="form-input" name="contactEmail"
+                                    placeholder="contact@organization.edu" required>
+
+                                <span class="input-icon">📬</span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="checkbox-group">
+
+                            <input type="checkbox" class="checkbox" id="publicProfile" name="publicProfile">
+
+                            <label for="publicProfile" class="checkbox-label">
+
+                                Make this organization profile visible to other campus users
+
+                            </label>
+
+                        </div>
+
+
+
+                        <div class="form-actions">
+
+                            <button type="button" class="btn btn-secondary" onclick="showPreviousStep()">
+
+                                <span>←</span>
+
+                                Previous
+
+                            </button>
+
+                            <button type="submit" class="btn btn-primary">
+
+                                Complete Setup
+
+                                <span>✓</span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="./js/register.js"></script>
+
+</body>
+
+</html>
+Save & Continue
+
+<span>→</span>
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+
+
+<!-- Organization Details Form -->
+
+<div id="organizationForm" class="form-content hidden">
+
+    <div class="form-header">
+
+        <h2 class="form-title">Organization Details</h2>
+
+        <p class="form-subtitle">Setup your campus organization for event management</p>
+
+    </div>
+
+
+
+    <form id="organizationDetailsForm">
+
+        <div class="form-grid">
+
+            <div class="form-group full-width">
+
+                <label class="form-label">University/Institution Name<span class="required">*</span></label>
+
+                <input type="text" class="form-input" name="universityName" placeholder="Enter your university name"
+                    required>
+
+                <span class="input-icon">🏛️</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Campus Location<span class="required">*</span></label>
+
+                <input type="text" class="form-input" name="campusLocation" placeholder="Main Campus, City" required>
+
+                <span class="input-icon">📍</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Organization Type<span class="required">*</span></label>
+
+                <select class="form-select" name="orgType" required>
+
+                    <option value="">Select Type</option>
+
+                    <option value="student-club">Student Club</option>
+
+                    <option value="department">Academic Department</option>
+
+                    <option value="student-union">Student Union</option>
+
+                    <option value="cultural-society">Cultural Society</option>
+
+                    <option value="sports-team">Sports Team</option>
+
+                    <option value="academic-society">Academic Society</option>
+
+                    <option value="volunteer-group">Volunteer Group</option>
+
+                    <option value="professional-body">Professional Body</option>
+
+                </select>
+
+                <span class="input-icon">🏢</span>
+
+            </div>
+
+
+
+            <div class="form-group full-width">
+
+                <label class="form-label">Organization Name<span class="required">*</span></label>
+
+                <input type="text" class="form-input" name="organizationName"
+                    placeholder="Enter your organization/club name" required>
+
+                <span class="input-icon">🎯</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Your Position<span class="required">*</span></label>
+
+                <select class="form-select" name="position" required>
+
+                    <option value="">Select Position</option>
+
+                    <option value="president">President</option>
+
+                    <option value="vice-president">Vice President</option>
+
+                    <option value="secretary">Secretary</option>
+
+                    <option value="treasurer">Treasurer</option>
+
+                    <option value="event-coordinator">Event Coordinator</option>
+
+                    <option value="committee-member">Committee Member</option>
+
+                    <option value="faculty-advisor">Faculty Advisor</option>
+
+                    <option value="department-head">Department Head</option>
+
+                </select>
+
+                <span class="input-icon">👑</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Organization Size</label>
+
+                <select class="form-select" name="orgSize">
+
+                    <option value="">Select Size</option>
+
+                    <option value="small">Small (1-25 members)</option>
+
+                    <option value="medium">Medium (26-100 members)</option>
+
+                    <option value="large">Large (101-500 members)</option>
+
+                    <option value="very-large">Very Large (500+ members)</option>
+
+                </select>
+
+                <span class="input-icon">👥</span>
+
+            </div>
+
+
+
+            <div class="form-group full-width">
+
+                <label class="form-label">Primary Focus Areas<span class="required">*</span></label>
+
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="academic" name="focusAreas" value="academic">
+
+                        <label for="academic" class="checkbox-label">Academic Events</label>
+
+                    </div>
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="cultural" name="focusAreas" value="cultural">
+
+                        <label for="cultural" class="checkbox-label">Cultural Events</label>
+
+                    </div>
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="sports" name="focusAreas" value="sports">
+
+                        <label for="sports" class="checkbox-label">Sports Events</label>
+
+                    </div>
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="tech" name="focusAreas" value="tech">
+
+                        <label for="tech" class="checkbox-label">Tech Events</label>
+
+                    </div>
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="social" name="focusAreas" value="social">
+
+                        <label for="social" class="checkbox-label">Social Events</label>
+
+                    </div>
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox" class="checkbox" id="volunteer" name="focusAreas" value="volunteer">
+
+                        <label for="volunteer" class="checkbox-label">Volunteer Work</label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Expected Events Per Semester</label>
+
+                <select class="form-select" name="eventFrequency">
+
+                    <option value="">Select Frequency</option>
+
+                    <option value="1-3">1-3 events</option>
+
+                    <option value="4-6">4-6 events</option>
+
+                    <option value="7-10">7-10 events</option>
+
+                    <option value="11+">11+ events</option>
+
+                </select>
+
+                <span class="input-icon">📅</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Average Event Size</label>
+
+                <select class="form-select" name="eventSize">
+
+                    <option value="">Select Size</option>
+
+                    <option value="small">Small (1-50 people)</option>
+
+                    <option value="medium">Medium (51-200 people)</option>
+
+                    <option value="large">Large (201-500 people)</option>
+
+                    <option value="very-large">Very Large (500+ people)</option>
+
+                </select>
+
+                <span class="input-icon">🎪</span>
+
+            </div>
+
+
+
+            <div class="form-group full-width">
+
+                <label class="form-label">Organization Description</label>
+
+                <textarea class="form-textarea" name="orgDescription"
+                    placeholder="Describe your organization's mission, goals, and activities..."></textarea>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Organization Website</label>
+
+                <input type="url" class="form-input" name="website" placeholder="https://your-org-website.com">
+
+                <span class="input-icon">🌐</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Contact Phone<span class="required">*</span></label>
+
+                <input type="tel" class="form-input" name="contactPhone" placeholder="Enter contact phone number"
+                    required>
+
+                <span class="input-icon">📞</span>
+
+            </div>
+
+
+
+            <div class="form-group">
+
+                <label class="form-label">Contact Email<span class="required">*</span></label>
+
+                <input type="email" class="form-input" name="contactEmail" placeholder="contact@organization.edu"
+                    required>
+
+                <span class="input-icon">📬</span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="checkbox-group">
+
+            <input type="checkbox" class="checkbox" id="publicProfile" name="publicProfile">
+
+            <label for="publicProfile" class="checkbox-label">
+
+                Make this organization profile visible to other campus users
+
+            </label>
+
+        </div>
+
+
+
+        <div class="form-actions">
+
+            <button type="button" class="btn btn-secondary" onclick="showPreviousStep()">
+
+                <span>←</span>
+
+                Previous
+
+            </button>
+
+            <button type="submit" class="btn btn-primary">
+
+                Complete Setup
+
+                <span>✓</span>
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</main>
+
+</div>
+
+</div>
+
+
+
+<script src="./js/api.js"></script>
+<script src="./js/registerForm.js"></script>
+<script src="./js/registrationPage.js"></script>
+
+</body>
+
+</html>

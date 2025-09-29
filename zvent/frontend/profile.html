@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - ZVENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/dasshboard.css">
+    <link rel="stylesheet" href="./css/smooth-transitions.css">
+    <style>
+        /* Text overflow handling */
+        .profile-field {
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .profile-field a {
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+
+        /* Responsive text sizing */
+        @media (max-width: 768px) {
+            .profile-field {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 via-white to-purple-50 min-h-screen">
+
+    <!-- Floating Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div
+            class="absolute -top-40 -right-40 w-80 h-80 gradient-purple rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation">
+        </div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 gradient-blue rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-animation"
+            style="animation-delay: 2s;"></div>
+        <div class="absolute top-40 left-40 w-60 h-60 gradient-emerald rounded-full mix-blend-multiply filter blur-xl opacity-20 floating-animation"
+            style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="fixed top-0 left-0 right-0 glass-effect z-50 p-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="./dashboard.html"
+                    class="flex items-center gap-3 text-gray-700 hover:text-indigo-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span class="font-medium">Back to Dashboard</span>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="editProfile()" class="btn btn-primary">
+                    <span class="text-lg">✏️</span>
+                    Edit Profile
+                </button>
+                <button onclick="logout()" class="btn btn-secondary">
+                    <span class="text-lg">🚪</span>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="pt-20 p-8 relative z-10">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Profile Header -->
+            <div class="modern-card rounded-3xl p-8 mb-8 text-center">
+                <div class="w-32 h-32 gradient-purple rounded-full flex items-center justify-center text-5xl text-white mx-auto mb-6"
+                    id="profileAvatar">
+                    P
+                </div>
+                <h1 class="text-4xl font-bold text-gradient mb-2" id="profileName">User Name</h1>
+                <p class="text-xl text-gray-600 mb-4" id="profileRole">Student</p>
+                <p class="text-gray-500" id="profileDepartment">Computer Science Engineering</p>
+            </div>
+
+            <!-- Profile Information Grid -->
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
+                <!-- Personal Information -->
+                <div class="modern-card rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                        <span class="text-2xl">👤</span>
+                        Personal Information
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Full Name</span>
+                            <span class="text-gray-900 profile-field" id="fullName">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Email</span>
+                            <span class="text-gray-900 profile-field" id="email">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Date of Birth</span>
+                            <span class="text-gray-900" id="dateOfBirth">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Gender</span>
+                            <span class="text-gray-900" id="gender">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Phone</span>
+                            <span class="text-gray-900" id="phone">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Student ID</span>
+                            <span class="text-gray-900" id="studentId">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Information -->
+                <div class="modern-card rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                        <span class="text-2xl">🎓</span>
+                        Academic Information
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Role</span>
+                            <span class="text-gray-900 capitalize" id="role">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Department</span>
+                            <span class="text-gray-900" id="department">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Timezone</span>
+                            <span class="text-gray-900" id="timezone">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Notifications</span>
+                            <span class="text-gray-900" id="notifications">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organization Information -->
+                <div class="modern-card rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                        <span class="text-2xl">🏢</span>
+                        Organization Details
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">University</span>
+                            <span class="text-gray-900" id="universityName">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Campus Location</span>
+                            <span class="text-gray-900" id="campusLocation">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Organization Type</span>
+                            <span class="text-gray-900 capitalize" id="orgType">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Organization Name</span>
+                            <span class="text-gray-900" id="organizationName">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Position</span>
+                            <span class="text-gray-900 capitalize" id="position">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Organization Size</span>
+                            <span class="text-gray-900 capitalize" id="orgSize">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Preferences -->
+                <div class="modern-card rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                        <span class="text-2xl">📞</span>
+                        Contact & Preferences
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Contact Email</span>
+                            <span class="text-gray-900" id="contactEmail">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Contact Phone</span>
+                            <span class="text-gray-900" id="contactPhone">-</span>
+                        </div>
+                        <div class="flex justify-between items-start py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600 flex-shrink-0 mr-4">Website</span>
+                            <span class="text-gray-900 break-all text-right" id="website">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-gray-100">
+                            <span class="font-medium text-gray-600">Focus Areas</span>
+                            <span class="text-gray-900" id="focusAreas">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bio Section -->
+            <div class="modern-card rounded-2xl p-6 mt-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-2xl">📝</span>
+                    About Me
+                </h2>
+                <p class="text-gray-700 leading-relaxed" id="bio">No bio available</p>
+            </div>
+
+            <!-- Profile Completion Status -->
+            <div class="modern-card rounded-2xl p-6 mt-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+                    <span class="text-2xl">✅</span>
+                    Profile Status
+                </h2>
+                <div class="flex items-center gap-4">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-medium text-gray-600">Profile Completion</span>
+                            <span class="text-sm text-gray-500" id="completionPercentage">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500"
+                                id="completionBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-sm text-gray-500">Last Updated</span>
+                        <p class="font-medium text-gray-900" id="lastUpdated">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300">
+        <div class="bg-white rounded-2xl p-8 text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-gray-600">Loading profile...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/api.js"></script>
+    <script src="./js/profilePage.js"></script>
+    <script>
+        // Apply profile-field class to all text content elements
+        document.addEventListener('DOMContentLoaded', function () {
+            const textFields = [
+                'fullName', 'email', 'dateOfBirth', 'gender', 'phone', 'studentId',
+                'role', 'department', 'timezone', 'notifications', 'universityName',
+                'campusLocation', 'orgType', 'organizationName', 'position', 'orgSize',
+                'contactEmail', 'contactPhone', 'website', 'focusAreas', 'bio'
+            ];
+
+            textFields.forEach(fieldId => {
+                const element = document.getElementById(fieldId);
+                if (element) {
+                    element.classList.add('profile-field');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
